@@ -1,0 +1,45 @@
+{
+    "json_version": 5,
+    "timestamp": "2026-01-01T00:00:00+00:00",
+    "serial_number": "urn:uuid:3bdba2b2-32d2-9215-c068-6ebc2544cb54",
+    "document_license": "CC0-1.0",
+    "package": {
+        "version_package": "libfoo",
+        "version_string": "1.0.0.1",
+        "components": [
+            {
+                "name": "prod",
+                "suffix": "tar.xz",
+                "filename": "libfoo-1.0.0.1-linux-native-prod.tar.xz",
+                "checksum": "065f44e693e8f74bbef034f933ee8928be1284e9"
+            },
+            {
+                "name": "dev",
+                "suffix": "tar.xz",
+                "filename": "libfoo-1.0.0.1-linux-native-dev.tar.xz",
+                "checksum": "cdba75ccefa7c84407cc6bbc3aad48d4afc49478"
+            },
+            {
+                "name": "licenses",
+                "suffix": "tar.xz",
+                "filename": "libfoo-1.0.0.1-linux-native-licenses.tar.xz",
+                "checksum": "34745e8837a8404117e1770e649b7c2fd47185bb"
+            },
+            {
+                "name": "debug",
+                "suffix": "tar.xz",
+                "filename": "libfoo-1.0.0.1-linux-native-debug.tar.xz",
+                "checksum": "05d39f65f028a811b13092bd2ce6893c24e3c230"
+            }
+        ],
+        "toolchain": "linux-native",
+        "channel": "example-development",
+        "purl": "pkg:rbbuild/example/libfoo@1.0.0.1?toolchain=linux-native",
+        "component_type": "application",
+        "git": {
+            "repo": "https://example.com/git/libfoo.git",
+            "hash": "c8abe29f7b304772701560d1a2c17a2344c16805",
+            "branch": "main"
+        }
+    }
+}

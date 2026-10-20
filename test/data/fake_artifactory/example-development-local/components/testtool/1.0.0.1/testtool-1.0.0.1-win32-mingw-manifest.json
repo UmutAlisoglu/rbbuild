@@ -1,0 +1,58 @@
+{
+    "json_version": 5,
+    "timestamp": "2026-01-01T00:00:00+00:00",
+    "serial_number": "urn:uuid:c7950bee-5934-13aa-1c6d-c79c283d8f87",
+    "document_license": "CC0-1.0",
+    "package": {
+        "version_package": "testtool",
+        "version_string": "1.0.0.1",
+        "components": [
+            {
+                "name": "prod",
+                "suffix": "tar.xz",
+                "filename": "testtool-1.0.0.1-win32-mingw-prod.tar.xz",
+                "checksum": "79dbfb594269a5c6d15d01f9809ad8ac9a9c86ad"
+            },
+            {
+                "name": "dev",
+                "suffix": "tar.xz",
+                "filename": "testtool-1.0.0.1-win32-mingw-dev.tar.xz",
+                "checksum": "b5b103c45712a6179fcdf3533f880beac65c6117"
+            }
+        ],
+        "toolchain": "win32-mingw",
+        "channel": "example-development",
+        "purl": "pkg:rbbuild/example/testtool@1.0.0.1?toolchain=win32-mingw",
+        "component_type": "application",
+        "git": {
+            "repo": "https://example.com/git/testtool.git",
+            "hash": "e3a8276c86c453094ae62dddd0ac255e12c803b3",
+            "branch": "main"
+        }
+    },
+    "dependencies": {
+        "testlib-1.0.0.1@win32-mingw": {
+            "package": {
+                "version_package": "testlib",
+                "version_string": "1.0.0.1",
+                "components": [
+                    {
+                        "name": "dev",
+                        "suffix": "tar.xz",
+                        "filename": "testlib-1.0.0.1-win32-mingw-dev.tar.xz",
+                        "checksum": "db509a1f553c7dc80182dde676931fa2a1cada95"
+                    }
+                ],
+                "toolchain": "win32-mingw",
+                "channel": "example-development",
+                "purl": "pkg:rbbuild/example/testlib@1.0.0.1?toolchain=win32-mingw",
+                "component_type": "application",
+                "git": {
+                    "repo": "https://example.com/git/testlib.git",
+                    "hash": "b7b4c67bb5da906fe1ee66dd4b424e983aa8a3c3",
+                    "branch": "main"
+                }
+            }
+        }
+    }
+}

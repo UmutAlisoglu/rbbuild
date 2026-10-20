@@ -1,0 +1,10 @@
+{
+    "json_version": 5,
+    "package": {
+        "version_package": "conflict_demo",
+        "version_string": "1.0.0.0.1",
+        "toolchain": "linux-native",
+        "channel": "sample-development",
+        "components": []
+    }
+}

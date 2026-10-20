@@ -1,0 +1,84 @@
+# SPDX-FileCopyrightText: 2026 Robert Bosch GmbH
+# SPDX-FileContributor: Tolga Dalman
+#
+# SPDX-License-Identifier: MIT
+
+[settings]
+channel         = 'example-development'
+toolchain-linux = 'linux-native'
+toolchain-win32 = 'win32-mingw'
+profile_version = '1.0.0'
+
+
+[profile.supplier]
+name  = 'Example Corp'
+email = 'info@example.com'
+url   = 'https://example.com/'
+
+
+[profile.oss.project]
+type               = 'fossid'
+project_org_prefix = 'EXAMPLE'
+remote_service     = 'fossid_service'
+users              = ['testuser']
+ignore_files       = ['.gitignore', 'Jenkinsfile']
+ignore_folders     = ['.git']
+
+
+[profile.issuetracker.PROJECT]
+remote_service = 'jira_service'
+
+
+[profile.sonar.example]
+host_url       = 'https://sonar.example.com/'
+project_key    = 'com.example.demo'
+project_prefix = 'EXAMPLE'
+
+
+[profile.channels.example-development]
+type           = 'rbbuild'
+remote_service = 'fake_artifactory'
+repository     = 'example-development-local'
+root_path      = 'components'
+
+
+[profile.channels.example-sources]
+type           = 'plain'
+remote_service = 'fake_artifactory'
+repository     = 'example-source-local'
+root_path      = 'sources'
+
+
+[profile.channels.example-stable]
+type           = 'rbbuild'
+remote_service = 'fake_artifactory'
+repository     = 'example-stable-local'
+root_path      = 'components'
+
+
+[profile.channels.sample-development]
+type           = 'rbbuild'
+remote_service = 'fake_artifactory'
+repository     = 'sample-development-local'
+root_path      = 'components'
+
+
+[profile.channels.sample-release]
+type           = 'rbbuild'
+remote_service = 'fake_artifactory'
+repository     = 'sample-development-local'
+root_path      = 'components'
+
+
+[profile.channels.sample-sources]
+type           = 'plain'
+remote_service = 'fake_artifactory'
+repository     = 'sample-source-local'
+root_path      = 'sources'
+
+
+[profile.channels.rbbuild-test]
+type           = 'rbbuild'
+remote_service = 'fake_artifactory'
+repository     = 'sample-development-local'
+root_path      = 'rbbuild-test'

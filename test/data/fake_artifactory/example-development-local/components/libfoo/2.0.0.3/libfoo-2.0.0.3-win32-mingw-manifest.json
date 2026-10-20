@@ -1,0 +1,45 @@
+{
+    "json_version": 5,
+    "timestamp": "2026-01-01T00:00:00+00:00",
+    "serial_number": "urn:uuid:2a0c6edf-245c-e2ac-f936-9552715be456",
+    "document_license": "CC0-1.0",
+    "package": {
+        "version_package": "libfoo",
+        "version_string": "2.0.0.3",
+        "components": [
+            {
+                "name": "prod",
+                "suffix": "tar.xz",
+                "filename": "libfoo-2.0.0.3-win32-mingw-prod.tar.xz",
+                "checksum": "0acbbfe37f84a84f154d99eedbc0061c91868f7b"
+            },
+            {
+                "name": "dev",
+                "suffix": "tar.xz",
+                "filename": "libfoo-2.0.0.3-win32-mingw-dev.tar.xz",
+                "checksum": "dad09f141f84e74e14f6cd69e8153629331b6963"
+            },
+            {
+                "name": "licenses",
+                "suffix": "tar.xz",
+                "filename": "libfoo-2.0.0.3-win32-mingw-licenses.tar.xz",
+                "checksum": "34745e8837a8404117e1770e649b7c2fd47185bb"
+            },
+            {
+                "name": "debug",
+                "suffix": "tar.xz",
+                "filename": "libfoo-2.0.0.3-win32-mingw-debug.tar.xz",
+                "checksum": "05d39f65f028a811b13092bd2ce6893c24e3c230"
+            }
+        ],
+        "toolchain": "win32-mingw",
+        "channel": "example-development",
+        "purl": "pkg:rbbuild/example/libfoo@2.0.0.3?toolchain=win32-mingw",
+        "component_type": "application",
+        "git": {
+            "repo": "https://example.com/git/libfoo.git",
+            "hash": "81db310ed17a795e3f1ac19a78f82d17b8ffbda6",
+            "branch": "main"
+        }
+    }
+}

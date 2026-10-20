@@ -1,0 +1,39 @@
+# Configuration file for the Sphinx documentation builder.
+#
+# For the full list of built-in configuration values, see the documentation:
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
+
+# -- Project information -----------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+
+project = '$_RBB_PROJECT_NAME'
+copyright = '2026 rbbuild user'
+author = '$_RBB_AUTHOR_NAMES'
+release = '$_RBB_VERSION'
+
+# -- General configuration ---------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
+
+# extensions = ['rst2pdf.pdfbuilder']
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-latex_documents
+rinoh_documents = [
+    dict(
+        doc='index',
+        target='$_RBB_PROJECT_NAME',
+        title='$_RBB_DOCUMENT_TITLE',
+        author='$_RBB_RINOH_AUTHOR_NAMES',
+        toctree_only=False,
+        template='Article',
+        $_RBB_LOGO_LINE,
+    ),
+]
+
+templates_path = ['_templates']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+
+
+# -- Options for HTML output -------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+
+html_theme = 'alabaster'
+# html_static_path = ['_static']

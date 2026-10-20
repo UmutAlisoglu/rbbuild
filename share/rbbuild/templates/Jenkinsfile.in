@@ -1,0 +1,4 @@
+rbbuild() {
+    profile    = "$_RBB_PROFILE"
+    toolchains = [ "$_RBB_PLATFORM-$_RBB_TOOLCHAIN_ID" ]
+}

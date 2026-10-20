@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2026 Robert Bosch GmbH
+# SPDX-FileContributor: Tolga Dalman
+#
+# SPDX-License-Identifier: MIT
+
+cmake_minimum_required(VERSION 3.25)
+project($ENV{RBB_PACKAGE_NAME})
+
+include(RBBuild)
+
+#### Uncomment and adapt the following lines as needed
+# set(SOURCES )
+# add_executable(myapp ${SOURCES})
+# target_link_libraries(myapp ...)
+# target_include_directories(myapp $_RBB_INCLUDE_DIR)
+#
+# add_library(mylib INTERFACE)
+# target_include_directories(mylib
+#    INTERFACE $<INSTALL_INTERFACE:include
+#              $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include> )
+
+# Package targets
+#install( TARGETS mylib
+#         EXPORT mylibTargets
+#         COMPONENT dev
+#         INCLUDES DESTINATION include)
+
+# Generate and install config modules for find_package()
+#install( EXPORT mylibTargets
+#         COMPONENT dev
+#         NAMESPACE mylib::
+#         DESTINATION cmake )
+
+#install( FILES "${CMAKE_SOURCE_DIR}/cmake/mylibConfig.cmake"
+#         COMPONENT dev
+#         DESTINATION cmake )
+
+RBPackage()

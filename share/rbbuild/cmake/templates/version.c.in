@@ -1,0 +1,36 @@
+#include <@VERSION_PACKAGE@_version.h>
+
+#define @VERSION_PACKAGE@_VERSION_STRING    "@VERSION_STRING@"
+#define @VERSION_PACKAGE@_VERSION_PACKAGE   "@VERSION_PACKAGE@"
+#define @VERSION_PACKAGE@_VERSION_BRANCH    "@VERSION_BRANCH@"
+#define @VERSION_PACKAGE@_VERSION_GIT_REPO  "@VERSION_GIT_REPO@"
+#define @VERSION_PACKAGE@_VERSION_GIT_HASH  "@VERSION_GIT_HASH@"
+
+/* This string is used as a prefix to grep the binary for version info. */
+#define VERSION_PREFIX "rbversion: "
+
+/* Embed version into binary.
+ * The rbversion string is used as the grep prefix. */
+static const char* version = VERSION_PREFIX @VERSION_PACKAGE@_VERSION_STRING;
+
+const rb_version_info* @VERSION_PACKAGE@_get_version_info()
+{
+  static const rb_version_info vinfo = {
+    @VERSION_PACKAGE@_VERSION_MAJOR,
+    @VERSION_PACKAGE@_VERSION_MINOR,
+    @VERSION_PACKAGE@_VERSION_REVISION,
+    @VERSION_PACKAGE@_VERSION_BRANCH,
+    @VERSION_PACKAGE@_VERSION_BUILD,
+    @VERSION_PACKAGE@_VERSION_GIT_REPO,
+    @VERSION_PACKAGE@_VERSION_GIT_HASH,
+  };
+
+  return &vinfo;
+}
+
+const char* @VERSION_PACKAGE@_get_version_string()
+{
+  /* Prevents version symbol from being compiled out as it will be
+   * unused otherwise. */
+  return version + sizeof(VERSION_PREFIX) - 1;
+}

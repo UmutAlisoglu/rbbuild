@@ -1,0 +1,136 @@
+# SPDX-FileCopyrightText: 2026 Robert Bosch GmbH
+# SPDX-FileContributor: Tolga Dalman
+#
+# SPDX-License-Identifier: MIT
+
+[project]
+name            = 'rbbuild'
+version         = '6.0'
+requires-python = '>= 3.14'
+description     = 'Robert Bosch build tool'
+license         = 'MIT'
+license-file    = 'LICENSE'
+readme          = 'README.md'
+
+authors = [
+    {name = 'Tolga Dalman', email = 'Tolga.Dalman@bosch.com'},
+]
+
+maintainers = [
+    {name = 'Tolga Dalman', email = 'Tolga.Dalman@bosch.com'},
+]
+
+dependencies = [
+    'uv>=0.11.32',
+    'requests>=2.34.0',
+    'ninja>=1.13',
+    'cmake>=4.4',
+    'packageurl-python>=0.13.4',
+    'packaging>=25.0',
+    'rinohtype>=0.5.5',
+    'dependency-injector>=4.48',
+    'gitpython>=3.2',
+    'tomlkit>=0.13',
+    'ruff>=0.17',
+]
+
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: POSIX :: Linux',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.14',
+    'Topic :: Software Development :: Build Tools',
+    'Topic :: Software Development :: Embedded Systems',
+]
+
+
+
+[project.scripts]
+rbbuild      = 'rbbuild.__main__:run'
+rbbuild-gui  = 'rbbuild.rbbuild_gui:run'
+pkq          = 'rbbuild.pkq:run'
+promote      = 'rbbuild.promote:run'
+concat_files = 'rbbuild.concat_files:run'
+rbbconf      = 'rbbuild.rbbconf:run'
+rbfoss       = 'rbbuild.rbfoss:run'
+
+
+[project.urls]
+sourcecode = 'https://github.com/boschglobal/rbbuild/'
+
+
+[project.optional-dependencies]
+ui = [
+    'PySide6>=6.11',
+    'pygments>=2.18',
+]
+
+
+[dependency-groups]
+dev = [
+    'requests-mock>=1.12.1',
+    'pytest>=9.0',
+    'pytest-cov>=7.1',
+    'cyclonedx-python-lib>=0.7.1',
+]
+
+
+[build-system]
+requires      = ['rbbuild']
+build-backend = 'rbbuild.buildsystem.build'
+# Without backend-path, a PEP 517 frontend (pip/uv) would satisfy `requires`
+# by installing the latest *published* rbbuild into an isolated build
+# environment and import the backend from there - which can never see local
+# changes to rbbuild.buildsystem.build (chicken-and-egg for this one,
+# self-referential project). rbbuild's own packaging (`rbbuild -p`) never
+# goes through this path at all - it calls build_wheel()/build_sdist()
+# in-process - so this only affects `pip`/`uv pip install [-e] .` from source.
+backend-path  = ['.']
+
+
+[tool.pytest.ini_options]
+minversion = '8.0'
+addopts = [
+    '-xv',
+    '--import-mode=importlib',
+]
+testpaths = [
+    'test',
+]
+pythonpath = '.'
+
+
+[tool.rbbuild.oss]
+ignore_folders = ['test', '.git']
+
+
+[tool.ruff.lint]
+select = ['E4', 'E7', 'E9', 'F']
+
+
+[tool.rbbuild.packaging.wheel]
+type = 'python'
+files = [
+    'rbbuild'
+]
+shared-data = [
+    'share',
+]
+
+
+[tool.rbbuild.pandoc.user-manual]
+files = [
+    'README.md',
+    'documentation/user-manual/**/*.md',
+]
+
+
+[tool.rbbuild.pandoc.developer-manual]
+files = [
+    'CONTRIBUTING.md',
+    'documentation/developer-manual/**/*.md',
+    '$GENERATED_DEPS_DIAGRAM',       # obj/any/documentation/deps_diagram.md
+    '$GENERATED_MANIFEST_DIAGRAM',   # obj/any/documentation/manifest_diagram.md
+]

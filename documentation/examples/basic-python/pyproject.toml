@@ -1,0 +1,125 @@
+# SPDX-FileCopyrightText: 2026 Robert Bosch GmbH
+# SPDX-FileContributor: Tolga Dalman
+#
+# SPDX-License-Identifier: MIT
+
+[project]
+name            = 'mypython_rbbuild'
+version         = '0.0'
+requires-python = '>= 3.14'
+description     = ''
+authors         = [
+    {name = 'Tolga Dalman', email = 'Tolga.Dalman@bosch.com'},
+]
+maintainers     = [
+    {name = 'Tolga Dalman', email = 'Tolga.Dalman@bosch.com'},
+]
+
+# Python dependencies
+dependencies = [
+    'requests>2.34'
+]
+
+
+# rbbuild dependencies can also be specified in this file
+# [tool.rbbuild.dependencies]
+# deps = [
+# ]
+
+
+[build-system]
+requires      = ['rbbuild']
+build-backend = 'rbbuild.buildsystem.build'
+
+
+# Uncomment and update the following entry to provide script entry points
+# (generates executables upon installation). See also:
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#creating-executable-scripts
+#
+# [project.scripts]
+# mypython_rbbuild = 'mypython_rbbuild.<module name>:main'
+
+
+# The following configuration items allow manual specification of rbbuild actions.
+# If not present, it will auto-detect based on present package manager files (e.g., CMakeLists.txt).
+#
+# [tool.rbbuild]
+# build-tools = ['rbbuild', 'cmake', 'pypa', 'npm']  # available build toolchains
+# documentation-tools = ['pandoc', 'sphinx']
+# test-tools = ['pytest']                            # tools for rbbuild -T (default: auto-detect)
+# sca-tools = ['ruff']                               # tools for rbbuild --sca
+
+
+#
+# rbbuild packaging
+#
+
+[tool.rbbuild.packaging.mypython_rbbuild]
+type='python'
+files = ['mypython-rbbuild']
+
+
+# In case 'rbbuild' is in the list of packaging-tools, packages can be defined
+# as follows, e.g., for the component called "mypkg":
+#
+# [tool.rbbuild.packaging.mypkg_example1]
+# files = ['$STAGING/some_archive.tar.xz']   # This file is taken as-is (no new compression)
+# suffix = 'tar.xz'                          # Otherwise, 'xz' is detected as suffix
+# traverse = 0                               # rbbuild component flag
+# build_only = 1                             # rbbuild component flag
+
+# [tool.rbbuild.packaging.mypkg_example2]
+# files = [                               # multiple files will be put into a tar.xz archive
+#    '$OBJ/my_executable',                # $OBJ/     is replaced with obj/<tcid>/, e.g., obj/native/
+#    '$STAGING/some_library/file',        # $STAGING/ is replaced with staging/<tcid>/
+#    'README.md',                         # all other paths are relative to the top-level source folder
+# ]
+#
+# suffix = 'txz'    # defaults to tar.xz for archives; use to select a different compression
+
+# [tool.rbbuild.packaging.mypkg_example3]
+# files = [
+#     { src = 'source/mypath/include', strip = 'source/mypath', dest = 'DevKit' },
+# ]
+# exclude = ['**/__pycache__', '**/*.pyc']
+#
+# In this example:
+#   src   (mandatory): file path or glob pattern
+#   strip (optional): this prefix is removed from matched paths inside the archive
+#                     e.g., 'source/mypath/include' becomes 'include'
+#   dest  (optional): this prefix is prepended to archive entry paths
+#                     e.g., the result is 'DevKit/include'
+#   exclude         : glob patterns removed from the matched file set
+
+# Python packages (type = 'python') produce a PEP 517 sdist + wheel.
+# __pycache__ directories are excluded automatically; no need to list them.
+#
+# [tool.rbbuild.packaging.mypkg_example4]
+# type = 'python'
+# files = ['mypkg']              # package directory; recurses automatically
+# # exclude = ['tests/**']       # additional exclusions on top of the __pycache__ default
+
+
+#
+# Documentation configuration with pandoc (MD) or Sphinx (RST)
+#
+
+# [tool.rbbuild.pandoc.user-manual]
+# files = [ 'README.md',
+#           'documentation/user-manual/*.md',      # By default, everything in documentation is taken as-is
+# ]
+
+
+# [tool.rbbuild.pandoc.developer-manual]
+# files = [ 'README.md',
+#           'documentation/developer-manual/*.md',   # By default, everything in documentation is taken as-is
+#           '$GENERATED_DEPS_DIAGRAM',               # obj/any/documentation/deps_diagram.md
+#           '$GENERATED_MANIFEST_DIAGRAM',           # obj/any/documentation/manifest_diagram.md
+# ]
+
+# [tool.rbbuild.sphinx.user-manual]
+# sourcedir = 'documentation/user-manual'
+# title = 'My User Manual'
+# logo = 'path/to/logo.png'
+# authors = ['me', 'you']          # not yet implemented; defaults to authors from pyproject.toml
+

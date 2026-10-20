@@ -1,0 +1,48 @@
+# SPDX-FileCopyrightText: 2026 Robert Bosch GmbH
+# SPDX-FileContributor: Tolga Dalman
+#
+# SPDX-License-Identifier: MIT
+
+# rbbuild project configuration
+
+[project]
+name            = 'fake_project'
+dynamic         = ['version']
+authors         = [
+                      {name = 'Jane Doe', email = 'jane.doe@example.com'},
+                  ]
+maintainers     = [
+                      {name = 'Jane Doe', email = 'jane.doe@example.com'},
+                  ]
+requires-python = '>= 3.8'
+description = 'This is a fake project for rbbuild testing purposes'
+license     = {text='MIT'}
+readme      = 'README.md'
+
+dependencies = [
+]
+
+[tool.setuptools.dynamic]
+version = {file = 'obj/any/version/pypa-version'}
+
+
+[tool.distutils.egg_info]
+egg_base = 'obj/native'
+
+
+#[project.urls]
+#sourcecode  = 'https://example.com/git/fake_project'
+#artifactory = 'https://artifactory.example.com/ui/repos/tree/General/example-development-local'
+
+
+[build-system]
+requires = ['setuptools >= 61.0']
+build-backend = 'setuptools.build_meta'
+
+
+[tool.rbbuild]
+version_major = 0
+version_minor = 0
+# Uncomment the following line to run python -m build before rbbuild. Defaults to ['rbbuild'].
+# build_backends = ['PyPA', 'rbbuild']
+

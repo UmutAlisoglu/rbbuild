@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2026 Robert Bosch GmbH
+# SPDX-FileContributor: Tolga Dalman
+#
+# SPDX-License-Identifier: MIT
+
+# rbbuild project configuration. See rbbuild.toml.md in the user manual.
+
+[project]
+name    = 'greet_cext'
+version = '1.0'
+
+# A platform-specific wheel with a CPython extension module. The wheel tag
+# (cpXY-cpXY-<platform>) is derived from the extension module's file name
+# and the selected toolchain.
+[packaging.wheel]
+type              = 'python'
+platform-specific = true
+files = [
+    'greet_cext',
+    {src = '$OBJ/_greet.*', strip = '$OBJ/', dest = 'greet_cext'},
+]

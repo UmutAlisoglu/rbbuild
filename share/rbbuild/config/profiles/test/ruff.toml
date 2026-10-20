@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2026 Robert Bosch GmbH
+# SPDX-FileContributor: Tolga Dalman
+#
+# SPDX-License-Identifier: MIT
+
+# Common ruff settings for rbbuild --sca. Projects can extend or override them
+# in their own ruff.toml or [tool.ruff] section of pyproject.toml.
+
+[lint]
+select = ['E4', 'E7', 'E9', 'F']

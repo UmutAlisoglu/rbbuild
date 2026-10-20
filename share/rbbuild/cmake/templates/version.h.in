@@ -1,0 +1,44 @@
+#ifndef _@VERSION_PACKAGE@_VERSION_H__
+#define _@VERSION_PACKAGE@_VERSION_H__
+
+#include <rbversioninfo.h> /* Declares rb_version_info */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/*
+  \brief Return the component version string
+
+  The version scheme is defined as follows:
+
+    <PACKAGE>-<MAJOR>.<MINOR>.<REVISION>-<BRANCH>.<BUILD>
+
+  \return Non-null static string. Must not be free'ed!
+*/
+const char* @VERSION_PACKAGE@_get_version_string(void);
+
+
+/*
+  \brief Return structure with concrete version information
+
+  \return Non-null pointer to a static structure. Must not be free'ed!
+*/
+const rb_version_info* @VERSION_PACKAGE@_get_version_info(void);
+
+
+/*
+  Version macros to enable conditional compilation
+*/
+#define @VERSION_PACKAGE@_VERSION_MAJOR     @VERSION_MAJOR@
+#define @VERSION_PACKAGE@_VERSION_MINOR     @VERSION_MINOR@
+#define @VERSION_PACKAGE@_VERSION_REVISION  @VERSION_REVISION@
+#define @VERSION_PACKAGE@_VERSION_BUILD     @VERSION_BUILD@
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif // _@VERSION_PACKAGE@_VERSION_H__
+

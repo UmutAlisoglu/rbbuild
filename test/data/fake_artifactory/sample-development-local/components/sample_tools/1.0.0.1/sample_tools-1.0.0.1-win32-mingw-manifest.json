@@ -1,0 +1,46 @@
+{
+    "json_version": 5,
+    "timestamp": "2026-01-01T00:00:00+00:00",
+    "serial_number": "urn:uuid:6e648a8c-1676-e230-d332-aa137b44d346",
+    "document_license": "CC0-1.0",
+    "package": {
+        "version_package": "sample_tools",
+        "version_string": "1.0.0.1",
+        "components": [
+            {
+                "name": "alpha",
+                "suffix": "tar.xz",
+                "filename": "sample_tools-1.0.0.1-win32-mingw-alpha.tar.xz",
+                "checksum": "35989be557a080be7d18bf57fe42f672d4c77262"
+            },
+            {
+                "name": "beta",
+                "suffix": "tar.xz",
+                "filename": "sample_tools-1.0.0.1-win32-mingw-beta.tar.xz",
+                "checksum": "3daf9248f5c1f6f2e7a3c11a72162e74ec10c0cd"
+            },
+            {
+                "name": "gamma",
+                "suffix": "tar.xz",
+                "filename": "sample_tools-1.0.0.1-win32-mingw-gamma.tar.xz",
+                "checksum": "818f83d79dcb7d252989025ee40ff9de8c4bd649"
+            },
+            {
+                "name": "sbom",
+                "suffix": "json",
+                "filename": "sample_tools-1.0.0.1-win32-mingw-sbom.cdx.json",
+                "checksum": "fd2004fa5d8eb2985dc343f49ccefee9880e7dd2",
+                "build_only": true
+            }
+        ],
+        "toolchain": "win32-mingw",
+        "channel": "sample-development",
+        "purl": "pkg:rbbuild/example/sample_tools@1.0.0.1?toolchain=win32-mingw",
+        "component_type": "application",
+        "git": {
+            "repo": "https://example.com/git/sample_tools.git",
+            "hash": "236df19f908ed827216e1ce311f501f14908da6f",
+            "branch": "main"
+        }
+    }
+}

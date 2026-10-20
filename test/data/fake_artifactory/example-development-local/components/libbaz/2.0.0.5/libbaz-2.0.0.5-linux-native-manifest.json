@@ -1,0 +1,15 @@
+{
+    "json_version": 5,
+    "timestamp": "2026-01-01T00:00:00+00:00",
+    "serial_number": "urn:uuid:9554ba40-7dd1-65ec-9cb4-716a7fff8529",
+    "document_license": "CC0-1.0",
+    "package": {
+        "version_package": "libbaz",
+        "version_string": "2.0.0.5",
+        "components": [],
+        "toolchain": "linux-native",
+        "channel": "example-development",
+        "purl": "pkg:rbbuild/example/libbaz@2.0.0.5?toolchain=linux-native",
+        "component_type": "application"
+    }
+}

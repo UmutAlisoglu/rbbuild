@@ -1,0 +1,67 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "rbbuild -sb",
+            "type": "shell",
+            "linux": {
+                "command": "rbbuild",
+                "problemMatcher": ["$gcc"]
+            },
+            "windows": {
+                "command": "rbbuild.py",
+                "problemMatcher": ["$msCompile"]
+            },
+            "args": [
+                "-s",
+                "-b"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "rbbuild -FI",
+            "type": "shell",
+            "linux": {
+                "command": "rbbuild"
+            },
+            "windows": {
+                "command": "rbbuild.py"
+            },
+            "args": [
+                "-F",
+                "-I"
+            ]
+        },
+        {
+            "label": "rbbuild -c",
+            "type": "shell",
+            "linux": {
+                "command": "rbbuild"
+            },
+            "windows": {
+                "command": "rbbuild.py"
+            },
+            "args": [
+                "-c"
+            ]
+        },
+        {
+            "label": "rbbuild -cf",
+            "type": "shell",
+            "linux": {
+                "command": "rbbuild"
+            },
+            "windows": {
+                "command": "rbbuild.py"
+            },
+            "args": [
+                "-c",
+                "-f"
+            ]
+        }
+    ]
+}
+

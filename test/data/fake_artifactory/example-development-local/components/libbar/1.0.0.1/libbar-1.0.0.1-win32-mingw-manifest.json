@@ -1,0 +1,145 @@
+{
+    "json_version": 5,
+    "timestamp": "2026-01-01T00:00:00+00:00",
+    "serial_number": "urn:uuid:605f0ed8-6520-844d-b0cd-c841884c716c",
+    "document_license": "CC0-1.0",
+    "package": {
+        "version_package": "libbar",
+        "version_string": "1.0.0.1",
+        "components": [
+            {
+                "name": "prod",
+                "suffix": "tar.xz",
+                "filename": "libbar-1.0.0.1-win32-mingw-prod.tar.xz",
+                "checksum": "4578d42fe8644c71485c0f906d0fa80e7bfbe5c0"
+            },
+            {
+                "name": "dev",
+                "suffix": "tar.xz",
+                "filename": "libbar-1.0.0.1-win32-mingw-dev.tar.xz",
+                "checksum": "87d4c2b21f2a6ff229a4922d1c38ba6fd35d91fe"
+            },
+            {
+                "name": "licenses",
+                "suffix": "tar.xz",
+                "filename": "libbar-1.0.0.1-win32-mingw-licenses.tar.xz",
+                "checksum": "07702abea31c19eef8b4c893be3ba2ba218a444b"
+            },
+            {
+                "name": "debug",
+                "suffix": "tar.xz",
+                "filename": "libbar-1.0.0.1-win32-mingw-debug.tar.xz",
+                "checksum": "05d39f65f028a811b13092bd2ce6893c24e3c230"
+            }
+        ],
+        "toolchain": "win32-mingw",
+        "channel": "example-development",
+        "purl": "pkg:rbbuild/example/libbar@1.0.0.1?toolchain=win32-mingw",
+        "component_type": "application",
+        "git": {
+            "repo": "https://example.com/git/libbar.git",
+            "hash": "0b938b96bc34fed0f397d7449cd341a1f7450b17",
+            "branch": "main"
+        }
+    },
+    "dependencies": {
+        "libfoo-1.0.0.1@win32-mingw": {
+            "package": {
+                "version_package": "libfoo",
+                "version_string": "1.0.0.1",
+                "components": [
+                    {
+                        "name": "prod",
+                        "suffix": "tar.xz",
+                        "filename": "libfoo-1.0.0.1-win32-mingw-prod.tar.xz",
+                        "checksum": "065f44e693e8f74bbef034f933ee8928be1284e9"
+                    },
+                    {
+                        "name": "dev",
+                        "suffix": "tar.xz",
+                        "filename": "libfoo-1.0.0.1-win32-mingw-dev.tar.xz",
+                        "checksum": "cdba75ccefa7c84407cc6bbc3aad48d4afc49478"
+                    },
+                    {
+                        "name": "licenses",
+                        "suffix": "tar.xz",
+                        "filename": "libfoo-1.0.0.1-win32-mingw-licenses.tar.xz",
+                        "checksum": "34745e8837a8404117e1770e649b7c2fd47185bb"
+                    },
+                    {
+                        "name": "debug",
+                        "suffix": "tar.xz",
+                        "filename": "libfoo-1.0.0.1-win32-mingw-debug.tar.xz",
+                        "checksum": "05d39f65f028a811b13092bd2ce6893c24e3c230"
+                    }
+                ],
+                "toolchain": "win32-mingw",
+                "channel": "example-development",
+                "purl": "pkg:rbbuild/example/libfoo@1.0.0.1?toolchain=win32-mingw",
+                "component_type": "application",
+                "git": {
+                    "repo": "https://example.com/git/libfoo.git",
+                    "hash": "c8abe29f7b304772701560d1a2c17a2344c16805",
+                    "branch": "main"
+                }
+            }
+        },
+        "testtool-1.0.0.1@win32-mingw": {
+            "package": {
+                "version_package": "testtool",
+                "version_string": "1.0.0.1",
+                "components": [
+                    {
+                        "name": "prod",
+                        "suffix": "tar.xz",
+                        "filename": "testtool-1.0.0.1-win32-mingw-prod.tar.xz",
+                        "checksum": "79dbfb594269a5c6d15d01f9809ad8ac9a9c86ad",
+                        "build_only": true
+                    },
+                    {
+                        "name": "dev",
+                        "suffix": "tar.xz",
+                        "filename": "testtool-1.0.0.1-win32-mingw-dev.tar.xz",
+                        "checksum": "b5b103c45712a6179fcdf3533f880beac65c6117",
+                        "build_only": true
+                    }
+                ],
+                "toolchain": "win32-mingw",
+                "channel": "example-development",
+                "purl": "pkg:rbbuild/example/testtool@1.0.0.1?toolchain=win32-mingw",
+                "component_type": "application",
+                "git": {
+                    "repo": "https://example.com/git/testtool.git",
+                    "hash": "e3a8276c86c453094ae62dddd0ac255e12c803b3",
+                    "branch": "main"
+                }
+            },
+            "dependencies": {
+                "testlib-1.0.0.1@win32-mingw": {
+                    "package": {
+                        "version_package": "testlib",
+                        "version_string": "1.0.0.1",
+                        "components": [
+                            {
+                                "name": "dev",
+                                "suffix": "tar.xz",
+                                "filename": "testlib-1.0.0.1-win32-mingw-dev.tar.xz",
+                                "checksum": "db509a1f553c7dc80182dde676931fa2a1cada95",
+                                "build_only": true
+                            }
+                        ],
+                        "toolchain": "win32-mingw",
+                        "channel": "example-development",
+                        "purl": "pkg:rbbuild/example/testlib@1.0.0.1?toolchain=win32-mingw",
+                        "component_type": "application",
+                        "git": {
+                            "repo": "https://example.com/git/testlib.git",
+                            "hash": "b7b4c67bb5da906fe1ee66dd4b424e983aa8a3c3",
+                            "branch": "main"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

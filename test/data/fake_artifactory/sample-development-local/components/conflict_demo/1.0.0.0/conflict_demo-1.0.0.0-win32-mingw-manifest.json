@@ -1,0 +1,10 @@
+{
+    "json_version": 5,
+    "package": {
+        "version_package": "conflict_demo",
+        "version_string": "1.0.0.0",
+        "toolchain": "win32-mingw",
+        "channel": "sample-development",
+        "components": []
+    }
+}

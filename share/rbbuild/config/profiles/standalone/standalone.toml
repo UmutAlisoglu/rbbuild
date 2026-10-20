@@ -1,0 +1,21 @@
+# SPDX-FileCopyrightText: 2026 Robert Bosch GmbH
+# SPDX-FileContributor: Tolga Dalman
+#
+# SPDX-License-Identifier: MIT
+
+[settings]
+channel         = 'local'
+toolchain-linux = 'linux-native'
+toolchain-win32 = 'win32-mingw'
+profile_version = '1.0.0'
+
+
+[profile.supplier]
+name = 'rbbuild user'
+
+
+[profile.channels.local]
+type           = 'rbbuild'
+remote_service = 'local'
+repository     = 'default'
+root_path      = 'components'

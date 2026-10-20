@@ -1,0 +1,15 @@
+#ifndef __RBVERSIONINFO_H_
+#define __RBVERSIONINFO_H_
+
+typedef struct {
+  int             major;
+  int             minor;
+  int          revision;
+  const char*    branch;
+  int             build;
+  const char*  git_repo;
+  const char*  git_hash;
+}
+rb_version_info;
+
+#endif /* __RBVERSIONINFO_H_ */

@@ -1,0 +1,242 @@
+# Bash completion for rbbuild, pkq, rbbconf, promote and rbfoss.
+#
+# Source this file (e.g., from ~/.bashrc) to enable completion for all tools.
+# See documentation/user-manual/bash_completion.md.
+#
+# Profiles, toolchains, channels and config keys are looked up by calling
+# rbbconf. A profile selected on the command line (-P) is taken into account.
+
+# Option lists. Keep them in sync with the argument parsers of the tools
+# (checked by test/unit/test_bash_completion.py).
+_rbb_opts_rbbuild='
+  -h --help -s --setup -S --setup-install-path -b --build -i --install
+  -p --package -c --clean -F --fetch -I --install-deps -T --run-tests
+  -D --documentation --publish --upload --delete --sca --licenses
+  -l --list -g --generate --generate-files -x --execute -d --debug
+  -j --jobs -t --toolchain -f --force -P --profile -v --verbose
+  -n --dry-run --define -L --deps-line -C --channel --components
+  --platform --manifest-only --depsfile --ignore-errors --offline
+  --source-path --version --log-level'
+
+_rbb_opts_pkq='
+  -h --help -o --out -s --source-dir -t --toolchain
+  -v --verbose -f --force -P --profile --stdin -C --channel --platform
+  -r --reverse-search -R --resolve --diff-mode --filter-changes --jql
+  --changelog -J --jira-releases -l --list --max-query-items
+  --all-toolchains --tree --manifest --no-traverse --ignore-errors
+  --log-level --version --offline'
+
+_rbb_opts_rbbconf='
+  -h --help -l --list -s --setconf -g --getconf -o --outfile --format
+  -f --force -v --verbose -n --dry-run -t --toolchain --platform
+  -P --profile --ignore-errors --log-level'
+
+_rbb_opts_promote='
+  -h --help -m --channel-map -M --map-file -t --toolchain -n --dry-run
+  -f --force -P --profile -g --gather -i --input-file --range
+  -A --all-packages --retries --no-traverse --platform --ignore-errors
+  --log-level --offline -T --tag'
+
+_rbb_opts_rbfoss='
+  -h --help -D --dependencies -s --setup -u --upload -r --run
+  -g --generate-report --cancel-run --report-type -c --clean -f --force
+  -P --profile --ignore-errors --log-level -v --verbose -n --dry-run'
+
+# Fixed choices
+_rbb_log_levels='ERROR WARNING INFO DEBUG'
+_rbb_platforms='linux win32'
+_rbb_generate_files='rbbuild.toml Jenkinsfile CMakeLists.txt pyproject.toml
+  .gitignore tasks.json'
+_rbb_diff_modes='basic commits jira git'
+_rbb_change_filters='new deleted changed moved'
+_rbb_list_targets='profiles channels services toolchains all'
+_rbb_formats='JSON TOML'
+_rbb_report_types='xlsx html'
+
+
+# Print the value of the first of the given options found before the word
+# that is being completed ("-P x", "--profile x" or "--profile=x").
+_rbb_line_value() {
+  local i o
+  for ((i = 1; i < COMP_CWORD; i++)); do
+    for o in "$@"; do
+      if [[ ${COMP_WORDS[i]} == "$o" ]]; then
+        [[ ${COMP_WORDS[i+1]} == '=' ]] && ((i++))
+        ((i + 1 < COMP_CWORD)) || return 1
+        printf '%s' "${COMP_WORDS[i+1]}"
+        return 0
+      fi
+    done
+  done
+  return 1
+}
+
+
+# Call rbbconf with the profile of the command line, if any. rbbconf writes
+# its messages to stderr.
+_rbb_rbbconf() {
+  local profile
+  if profile=$(_rbb_line_value -P --profile); then
+    set -- -P "$profile" "$@"
+  fi
+  command rbbconf "$@" 2>&1
+}
+
+
+_rbb_list_profiles() {
+  command rbbconf -l profiles 2>&1 |
+    sed -n -E 's/^\[[0-9]+\][[:space:]]+\*?([^[:space:]]+).*/\1/p'
+}
+
+
+_rbb_list_toolchains() {
+  local platform
+  if ! platform=$(_rbb_line_value --platform); then
+    case $(uname -s) in
+      MINGW*|MSYS*|CYGWIN*) platform=win32 ;;
+      *) platform=linux ;;
+    esac
+  fi
+  _rbb_rbbconf -l toolchains | awk -v p="$platform" '$1 == p { print $2 }'
+}
+
+
+_rbb_list_channels() {
+  _rbb_rbbconf -l channels |
+    awk 'NF && $1 != "Channel" && $1 !~ /^-+$/ { print $1 }'
+}
+
+
+# Print all config keys as <section>.<key>
+_rbb_list_config_keys() {
+  _rbb_rbbconf -g | awk '
+    /^\[.*\]$/ { section = substr($0, 2, length($0) - 2); next }
+    section != "" && $2 == "=" { print section "." $1 }'
+}
+
+
+# Complete the last comma-separated item of the current word with the words
+# given as argument.
+_rbb_reply() {
+  local prefix=${cur%"${cur##*,}"}
+  COMPREPLY=($(compgen -P "$prefix" -W "$1" -- "${cur##*,}"))
+}
+
+
+_rbb_reply_files() {
+  compopt -o filenames 2>/dev/null
+  COMPREPLY=($(compgen -f -- "$cur"))
+}
+
+
+_rbb_reply_dirs() {
+  compopt -o filenames 2>/dev/null
+  COMPREPLY=($(compgen -d -- "$cur"))
+}
+
+
+# Options with a value that cannot be completed
+_rbb_reply_none() {
+  compopt +o default 2>/dev/null
+  COMPREPLY=()
+}
+
+
+# Complete the value of option $2 of tool $1. Returns 1 if the option is
+# unknown or takes no value.
+_rbb_complete_value() {
+  local tool=$1 opt=$2 keys
+
+  case $opt in
+    -P|--profile)   _rbb_reply "$(_rbb_list_profiles)"; return 0 ;;
+    -t|--toolchain) _rbb_reply "$(_rbb_list_toolchains)"; return 0 ;;
+    -C|--channel)   _rbb_reply "$(_rbb_list_channels)"; return 0 ;;
+    --platform)     _rbb_reply "$_rbb_platforms"; return 0 ;;
+    --log-level)    _rbb_reply "$_rbb_log_levels"; return 0 ;;
+  esac
+
+  case $tool:$opt in
+    rbbuild:-S|rbbuild:--setup-install-path|rbbuild:-g|rbbuild:--generate| \
+    rbbuild:--source-path|pkq:-s|pkq:--source-dir)
+      _rbb_reply_dirs ;;
+    rbbuild:--depsfile|rbbuild:-x|rbbuild:--execute|pkq:-o|pkq:--out| \
+    pkq:--manifest|promote:-M|promote:--map-file|promote:-i| \
+    promote:--input-file|promote:-g|promote:--gather| \
+    rbbconf:-o|rbbconf:--outfile)
+      _rbb_reply_files ;;
+    rbbuild:--generate-files) _rbb_reply "$_rbb_generate_files" ;;
+    pkq:--diff-mode)          _rbb_reply "$_rbb_diff_modes" ;;
+    pkq:--filter-changes)     _rbb_reply "$_rbb_change_filters" ;;
+    promote:-m|promote:--channel-map) _rbb_reply "$(_rbb_list_channels)" ;;
+    rbbconf:-l|rbbconf:--list) _rbb_reply "$_rbb_list_targets" ;;
+    rbbconf:--format)         _rbb_reply "$_rbb_formats" ;;
+    rbbconf:-g|rbbconf:--getconf)
+      _rbb_reply "$(_rbb_list_config_keys)" ;;
+    rbbconf:-s|rbbconf:--setconf)
+      # No key completion after '=' (the value is being typed)
+      ((glued)) && { _rbb_reply_none; return 0; }
+      compopt -o nospace 2>/dev/null
+      keys=$(_rbb_list_config_keys)
+      _rbb_reply "$(sed -e 's/$/=/' <<<"$keys"
+                    sed -n -e 's/^settings\.\(.*\)/\1=/p' <<<"$keys")" ;;
+    rbfoss:--report-type)     _rbb_reply "$_rbb_report_types" ;;
+    rbbuild:-j|rbbuild:--jobs|rbbuild:--define|rbbuild:-L|rbbuild:--deps-line| \
+    rbbuild:--components|rbbuild:--upload|rbbuild:--delete| \
+    pkq:-r|pkq:--reverse-search|pkq:--max-query-items|pkq:--jql| \
+    pkq:--changelog|pkq:-J|pkq:--jira-releases| \
+    promote:--range|promote:--retries)
+      _rbb_reply_none ;;
+    *) return 1 ;;
+  esac
+}
+
+
+# Completion entry point for tool $1
+_rbb_complete() {
+  local tool=$1 cur=${COMP_WORDS[COMP_CWORD]} opts i glued=0
+  COMPREPLY=()
+
+  # "--opt=value" and "<in>:<out>" are split by bash into three words.
+  # Look behind the separators to find the option the value belongs to.
+  i=$((COMP_CWORD - 1))
+  if [[ $cur == [=:] ]]; then
+    cur=''
+    i=$COMP_CWORD
+  fi
+  while ((i > 0)); do
+    if [[ ${COMP_WORDS[i]} == [=:] ]]; then
+      glued=1
+      ((i--))
+    elif ((glued)) && [[ ${COMP_WORDS[i]} != -* ]]; then
+      ((i--))
+    else
+      break
+    fi
+  done
+
+  if [[ $cur == -* ]]; then
+    opts=_rbb_opts_$tool
+    COMPREPLY=($(compgen -W "${!opts}" -- "$cur"))
+  elif ((i >= 0)) && [[ ${COMP_WORDS[i]} == -* ]]; then
+    if _rbb_complete_value "$tool" "${COMP_WORDS[i]}"; then
+      # No fallback to file names for values that were looked up
+      ((${#COMPREPLY[@]})) || _rbb_reply_none
+    fi
+  fi
+
+  return 0
+}
+
+
+_rbbuild() { _rbb_complete rbbuild; }
+_pkq()     { _rbb_complete pkq; }
+_rbbconf() { _rbb_complete rbbconf; }
+_promote() { _rbb_complete promote; }
+_rbfoss()  { _rbb_complete rbfoss; }
+
+# Files are completed for positional arguments of rbbuild (e.g., --upload)
+complete -o default -F _rbbuild rbbuild
+complete -F _pkq pkq
+complete -F _rbbconf rbbconf
+complete -F _promote promote
+complete -F _rbfoss rbfoss

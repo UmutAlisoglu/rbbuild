@@ -1,0 +1,46 @@
+{
+    "json_version": 5,
+    "timestamp": "2026-01-01T00:00:00+00:00",
+    "serial_number": "urn:uuid:032d2b99-b9d9-192e-c9d6-399f7f4fd2ed",
+    "document_license": "CC0-1.0",
+    "package": {
+        "version_package": "sample_tools",
+        "version_string": "1.0.0.2",
+        "components": [
+            {
+                "name": "alpha",
+                "suffix": "tar.xz",
+                "filename": "sample_tools-1.0.0.2-linux-native-alpha.tar.xz",
+                "checksum": "0168cecc243671fe4e4e6ac0d9d6b459674b7704"
+            },
+            {
+                "name": "beta",
+                "suffix": "tar.xz",
+                "filename": "sample_tools-1.0.0.2-linux-native-beta.tar.xz",
+                "checksum": "02a1abd8e29c67ccec362a2f3901334addca82f5"
+            },
+            {
+                "name": "gamma",
+                "suffix": "tar.xz",
+                "filename": "sample_tools-1.0.0.2-linux-native-gamma.tar.xz",
+                "checksum": "36b44c1ff4869f18f9e0669d5e41dabc9bc7a756"
+            },
+            {
+                "name": "sbom",
+                "suffix": "json",
+                "filename": "sample_tools-1.0.0.2-linux-native-sbom.cdx.json",
+                "checksum": "fd2004fa5d8eb2985dc343f49ccefee9880e7dd2",
+                "build_only": true
+            }
+        ],
+        "toolchain": "linux-native",
+        "channel": "sample-development",
+        "purl": "pkg:rbbuild/example/sample_tools@1.0.0.2?toolchain=linux-native",
+        "component_type": "application",
+        "git": {
+            "repo": "https://example.com/git/sample_tools.git",
+            "hash": "03e49cb7d068318963352521ce7da95092cbff02",
+            "branch": "main"
+        }
+    }
+}
