@@ -27,12 +27,7 @@ def test_missing_repository_is_empty(pkq_empty, user_home_empty):
 
 
 @_skip_without_toolchain
-@pytest.mark.parametrize('spaces_in_path', [
-    False,
-    pytest.param(True, marks=pytest.mark.skipif(
-        sys.platform != 'win32', reason='MinGW path quoting regression',
-    )),
-])
+@pytest.mark.parametrize('spaces_in_path', [False, True])
 def test_publish_and_list(
     rbbuild_empty, pkq_empty, user_home_empty, spaces_in_path,
 ):
